@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package grpc;
+
+message Text {
+  string Text = 1;
+}
+
+message Answer {
+  map <string, int64> result = 1;
+}
+
+service FilterText {
+  rpc FilterText(Text) returns (Answer) {}
+}

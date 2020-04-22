@@ -1,11 +1,14 @@
-BIN_DIR := ./bin
+BIN_NAME := ./bin
 PROTO_DIR := ./server/grpc/api/
 PROTO_CLIENT := $(PROTO_DIR)/server.proto
 PROTO_SERVER := $(PROTO_DIR)/client.proto
 
 .PHONY:
 build:
-	go build -o $(BIN_DIR)
+	go build -o $(BIN_NAME)
+
+run:
+	./bin & python3 ./python/script.py
 
 .PHONY:
 test:
@@ -14,7 +17,7 @@ test:
 .PHONY:
 clean:
 	go clean
-	rm -rf $(BIN_DIR)
+	rm -rf $(BIN_NAME)
 
 .PHONY:
 lint:

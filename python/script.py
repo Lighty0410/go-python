@@ -1,12 +1,21 @@
 import grpc
 import logging
+import os
 
 import server_pb2_grpc, server_pb2, client_pb2_grpc, client_pb2
 from concurrent import futures
 
+client_port = os.getenv('GRPC_PYTHON_CLIENT_PORT')
+if not client_port:
+    client_port = "localhost:8080"
+
+server_port = os.getenv('GRPC_PYTHON_SERVER_PORT')
+if not server_port:
+        server_port = "[::]:50051"
+
+channel = grpc.insecure_channel(client_port)
 
 def GetTopic(word):
-    channel = grpc.insecure_channel('localhost:8080')
     stub = client_pb2_grpc.GetTopicsStub(channel)
     wor = client_pb2.Word()
     wor.Word = word
@@ -34,12 +43,9 @@ class Filter(server_pb2_grpc.FilterTextServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     server_pb2_grpc.add_FilterTextServicer_to_server(Filter(), server)
-    server.add_insecure_port('[::]:50051')
+    server.add_insecure_port(server_port)
     server.start()
     server.wait_for_termination()
-
-
-serve()
 
 if __name__ == '__main__':
     logging.basicConfig()

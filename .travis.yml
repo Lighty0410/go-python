@@ -1,0 +1,15 @@
+language: go
+
+go:
+  - "1.14.x"
+
+dist: bionic
+
+script:
+  - make mod
+  - make lint
+  - make test
+  - make build
+
+install:
+  - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.24.0

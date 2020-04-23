@@ -6,7 +6,6 @@ go:
 dist: bionic
 
 script:
-  - make mod
   - make lint
   - make test
   - make build

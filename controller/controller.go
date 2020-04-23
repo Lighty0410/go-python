@@ -22,7 +22,7 @@ func New(jsonMap map[string]map[string]int, client api.FilterTextClient) *Contro
 // GetTopics gets topic for a given word.
 func (c *Controller) GetTopics(word string) *api.Topics {
 	words := c.JSONMap[word]
-	topics := make([]*api.Topic, 0)
+	topics := make([]*api.Topic, 0, len(words))
 	for k, v := range words {
 		topics = append(topics, &api.Topic{
 			Key:   k,

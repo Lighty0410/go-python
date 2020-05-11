@@ -14,9 +14,6 @@ For Python:
     
 Then run `make build` and `make run`
 
-# Hours spent doing this task 
-24 
-
 # QPS 
 ~21000
 System spec: 
